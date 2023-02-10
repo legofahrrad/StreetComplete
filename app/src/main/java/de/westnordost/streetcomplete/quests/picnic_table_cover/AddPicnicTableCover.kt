@@ -15,8 +15,7 @@ class AddPicnicTableCover : OsmFilterQuestType<Boolean>() {
 
     override val elementFilter = """
         nodes with
-          leisure = picnic_table
-          and access !~ private|no
+          (leisure = picnic_table or amenity = bench)
           and !covered
           and (!seasonal or seasonal = no)
     """
@@ -29,7 +28,7 @@ class AddPicnicTableCover : OsmFilterQuestType<Boolean>() {
     override fun getTitle(tags: Map<String, String>) = R.string.quest_picnicTableCover_title
 
     override fun getHighlightedElements(element: Element, getMapData: () -> MapDataWithGeometry) =
-        getMapData().filter("nodes with leisure = picnic_table")
+        getMapData().filter("nodes with (leisure = picnic_table or amenity = bench)")
 
     override fun createForm() = YesNoQuestForm()
 
