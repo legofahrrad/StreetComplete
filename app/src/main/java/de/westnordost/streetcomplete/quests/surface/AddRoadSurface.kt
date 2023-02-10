@@ -18,7 +18,7 @@ class AddRoadSurface : OsmFilterQuestType<SurfaceAnswer>() {
             "unclassified", "residential", "living_street", "pedestrian", "track",
             ).joinToString("|")
           }
-          or highway = service and service !~ driveway|slipway
+          or highway = service
         )
         and (
           !surface
@@ -31,7 +31,6 @@ class AddRoadSurface : OsmFilterQuestType<SurfaceAnswer>() {
           )
           ${INVALID_SURFACES_FOR_TRACKTYPES.map{tracktypeConflictClause(it)}.joinToString("\n")}
         )
-        and (access !~ private|no or (foot and foot !~ private|no))
     """
 
     private fun tracktypeConflictClause(conflictEntry: Map.Entry<String, Set<String>>): String {
